@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f5f5f2">
+  <title>Canvas — AI website generator</title>
+  <link rel="stylesheet" href="/app.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <svg xmlns="http://www.w3.org/2000/svg" class="icon-library" aria-hidden="true">
+    <symbol id="spark" viewBox="0 0 24 24"><path d="M12 2.8 14 9l6.2 2-6.2 2-2 6.2L10 13l-6.2-2L10 9l2-6.2ZM19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8L19 15Z"/></symbol>
+    <symbol id="grid" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.5"/></symbol>
+    <symbol id="arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="download" viewBox="0 0 24 24"><path d="M12 3v12m-4-4 4 4 4-4M5 17v3h14v-3"/></symbol>
+    <symbol id="code" viewBox="0 0 24 24"><path d="m8 6-6 6 6 6m8-12 6 6-6 6M14 3l-4 18"/></symbol>
+    <symbol id="check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+    <symbol id="play" viewBox="0 0 24 24"><path d="m8 5 11 7-11 7V5Z"/></symbol>
+    <symbol id="sliders" viewBox="0 0 24 24"><path d="M4 7h16M4 17h16M8 4v6m8 4v6"/></symbol>
+    <symbol id="external" viewBox="0 0 24 24"><path d="M13 5h6v6M19 5l-9 9M18 14v5H5V6h5"/></symbol>
+  </svg>
+
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a href="/" class="brand"><span class="brand-mark"><svg><use href="#spark"/></svg></span><span>canvas<span class="brand-dot">.</span></span></a>
+      <div class="workspace-label">YOUR WORKSPACE</div>
+      <div class="sidebar-item active"><svg><use href="#grid"/></svg><span>Website studio</span><span class="active-dot"></span></div>
+      <div class="sidebar-note"><span class="note-icon"><svg><use href="#spark"/></svg></span><p>From a first thought<br><strong>to a working page.</strong></p></div>
+      <div class="sidebar-footer"><span class="avatar">04</span><span><strong>Group 04</strong><small>Research project</small></span><span class="footer-dots">···</span></div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar"><div class="breadcrumb"><span>Workspace</span><span class="slash">/</span><strong>Website studio</strong></div><div class="topbar-right"><span class="live-dot"></span><span>LOCAL WORKSPACE</span></div></header>
+      <div class="content">
+        <div class="heading-row"><div><div class="eyebrow"><span></span> YOUR CREATIVE WORKSPACE</div><h1>Make something <em>real.</em></h1><p class="subtitle">Describe your idea. Let AI bring it to the browser.</p></div><div class="heading-tag"><svg><use href="#spark"/></svg> POWERED BY GEMINI</div></div>
+        <div class="studio-grid">
+          <section class="left-column" aria-label="Website configuration">
+            <div class="card prompt-card"><div class="card-heading"><div><span class="section-kicker">01 / THE IDEA</span><h2>What are we building?</h2></div><span class="card-icon"><svg><use href="#spark"/></svg></span></div><p class="card-description">A little detail goes a long way. Tell us what you want to create.</p>
+              <form id="generator-form"><label for="prompt">Your description <span>REQUIRED</span></label><textarea id="prompt" maxlength="5000" minlength="10" required placeholder="A cozy coffee shop website with a warm color palette, a menu, and a button to book a table..."></textarea><div class="input-meta"><span>Be as specific or imaginative as you like</span><span><span id="character-count">0</span> / 5,000</span></div>
+                <div class="suggestion-label">NEED A STARTING POINT?</div><div class="suggestions"><button type="button" data-example="coffee">☕ &nbsp;Coffee shop</button><button type="button" data-example="portfolio">✦ &nbsp;Portfolio</button><button type="button" data-example="habit">◷ &nbsp;Habit tracker</button></div>
+                <div class="rule"></div><div class="config-heading"><span><svg><use href="#sliders"/></svg> Generation settings</span><span class="config-note">OPTIONAL</span></div><label class="model-label" for="model">Gemini model</label><div class="model-wrap"><span class="gemini-star">✦</span><input id="model" value="gemini-3.5-flash-lite" maxlength="100" pattern="[A-Za-z0-9._-]+" required><span class="model-badge">API</span></div><p class="config-help">Uses your local <code>GOOGLE_API_KEY</code>. Your key stays on the server.</p>
+                <button class="generate" id="generate" type="submit"><span id="generate-label">Generate website</span><svg><use href="#arrow"/></svg></button><p class="under-button"><span>✧</span> Your idea, one prompt away.</p><div id="error" class="error-message" role="alert" hidden></div>
+              </form>
+            </div>
+            <div class="tip"><span>✳</span><p><strong>A little inspiration</strong><br>Try including your audience, desired sections, colors, and any interactions you have in mind.</p></div>
+          </section>
+
+          <section class="right-column" aria-label="Website output"><div class="card preview-card"><div class="preview-heading"><div><span class="section-kicker">02 / THE RESULT</span><h2>Your canvas <span class="beta">PREVIEW</span></h2></div><div class="preview-actions"><button id="test-button" class="quiet-button" type="button" disabled><svg><use href="#play"/></svg> Run checks</button><button id="download" class="download-button" type="button" disabled><svg><use href="#download"/></svg> Download</button></div></div>
+            <div class="tabs" role="tablist" aria-label="Result views"><button type="button" role="tab" aria-selected="true" data-tab="preview">Preview</button><button type="button" role="tab" aria-selected="false" data-tab="code">Code</button><button type="button" role="tab" aria-selected="false" data-tab="checks">Checks <span id="test-count">0</span></button><span class="tabs-spacer"></span><span class="preview-caption"><span class="live-dot"></span> ISOLATED PREVIEW</span></div>
+            <div id="panel-preview" class="result-panel"><div class="browser-bar"><span class="browser-dots"><i></i><i></i><i></i></span><div class="address-bar"><span>⌁</span> <span id="address-label">your-idea.preview</span></div><span class="browser-action"><svg><use href="#external"/></svg></span></div><div class="preview-surface"><div id="empty-state" class="empty-state"><div class="empty-art"><div class="art-window"><div class="art-top"><i></i><i></i><i></i></div><div class="art-body"><span></span><span></span><div></div><small></small><small></small><small></small></div></div><div class="art-spark">✳</div><div class="art-cursor">✦</div></div><h3>A blank canvas, full of possibility.</h3><p>Describe the website you have in mind.<br>Your preview will appear right here.</p><div class="empty-badge"><span>✦</span> READY WHEN YOU ARE</div></div><iframe id="preview-frame" title="Generated website preview" sandbox="allow-scripts" hidden></iframe><div id="loading" class="loading" hidden><span class="spinner"></span><strong>Turning your idea into a website</strong><span>Gemini is designing, coding, and preparing your preview.</span></div></div></div>
+            <div id="panel-code" class="result-panel code-panel" hidden><div class="code-toolbar"><span><svg><use href="#code"/></svg> index.html</span><button type="button" id="copy">Copy code</button></div><pre><code id="code-output">Your generated code will appear here.</code></pre></div>
+            <div id="panel-checks" class="result-panel checks-panel" hidden><div class="checks-intro"><h3>Confidence, built in.</h3><p>We inspect document structure and JavaScript syntax, then check the rendered preview for runtime errors.</p></div><div id="checks-list" class="checks-list"><div class="checks-empty">Checks will appear after you generate a website.</div></div><p class="checks-disclaimer">Checks are a starting point, not proof that every feature works. Review the preview before using the code.</p></div>
+          </div><div class="result-footer"><span><span class="footer-symbol">◇</span> Made for ideas worth building</span><span>GENERATION + PREVIEW + CHECKS</span></div></section>
+        </div>
+        <footer class="page-footer"><span>© 2026 CANVAS STUDIO</span><span>CREATED FOR CURIOUS MINDS <span>✦</span></span></footer>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

@@ -1,0 +1,29 @@
+CANVAS — LOCAL WEBSITE GENERATOR
+
+From this repository, install dependencies in your existing virtual environment:
+
+  ..\.venv\Scripts\python.exe -m pip install -r requirements.txt
+
+Set GOOGLE_API_KEY or GEMINI_API_KEY in the parent .env file or process
+environment. The application also accepts a .env file in this directory.
+Never commit or share your actual API key. Use .env.example as a reference.
+
+Start the server:
+
+  ..\.venv\Scripts\python.exe server.py
+
+Open http://127.0.0.1:8765, describe a website, choose a Gemini model,
+and select Generate website. Inspect the preview, source and checks, then
+download the single HTML file. The default model is gemini-3.5-flash-lite.
+Gemini availability, quotas and pricing depend on your account.
+
+Checks cover basic structure, JavaScript syntax (requires Node.js), and
+browser preview startup errors. They are not comprehensive functional tests.
+The browser preview is sandboxed, but is not a hardened untrusted-code
+sandbox; inspect generated code before opening the downloaded file normally.
+
+Run application tests:
+
+  ..\.venv\Scripts\python.exe -B -m unittest discover -s tests -v
+
+Press Ctrl+C in the server terminal to stop it.
