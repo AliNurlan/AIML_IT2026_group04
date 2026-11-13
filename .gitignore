@@ -1,0 +1,7 @@
+__pycache__/
+*.py[cod]
+.env
+Project Map.canvas
+*.md
+*.docx
+.venv/
